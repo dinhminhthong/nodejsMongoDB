@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+<!--    <div class="topnav"  >-->
+<!--        <a class="active" href="#home">Home</a>-->
+<!--        <a href="#news">News</a>-->
+<!--        <a href="#contact">Contact</a>-->
+<!--        <a href="#about">About</a>-->
+<!--    </div>-->
+
+    <div style="padding-left:16px">
+        <h1 class="d-flex justify-content-center">List User</h1>
+        <br>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>STT</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Type</th>
+            <th>View</th>
+            <th>Update</th>
+            <th>Delete</th>
+
+        </tr>
+        <% for(let i=0; i<dataUser.length; i++) { %>
+            <tr>
+                <td><%=i + 1%></td>
+                <td>
+                    <%=dataUser[i].id %>
+                </td>
+                <td>
+                    <%=dataUser[i].name %>
+                </td>
+                <td>
+                    <%=dataUser[i].author %>
+                </td>
+                <td>
+                    <%=dataUser[i].type %>
+                </td>
+
+
+                <td>
+                    <a href="/detail/<%=dataUser[i].id%>" target="_blank"><button class="btn btn-outline-success" type="button">view</button></a>
+
+                </td>
+                <td>
+                    <form action="/update/<%=dataUser[i].id%>" method="get">
+                        <button type="submit" class="btn btn-outline-success">Update</button>
+                    </form>
+                </td>
+                <td>
+                  
+                    <button onclick="deleteBlog('<%=dataUser[i].name%>', '<%=dataUser[i].id %>')" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete
+                      </button>
+
+                </td>
+            </tr>
+            <% } %>
+    </table>
+    <div class="row" >
+        <div class="col-3"></div>
+       <div class="col-6">
+        <form action="/create" method="post">
+            <div>
+                <label>Name</label>
+                <input class="form-control" type="text" name="name" />
+            </div>
+            <div>
+                <label>Type</label>
+                <input  class="form-control" type="text" name="type" />
+            </div>
+            <div>
+                <label>Author</label>
+                <input  class="form-control" type="text" name="author" />
+            </div>
+            <div class="d-flex justify-content-end">
+                <button style="margin-top: 10px" type="submit" class="btn btn-outline-success">Save</button>
+            </div>
+        </form>
+       </div>
+        
+    </div>
+<!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <form action="/delete" method="post">
+        <div class="modal-body">
+            <p id="nameDelete"></p>
+                <input type="text" id="nameId" hidden  name="deleteId">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-outline-danger" >Delete</button>
+        </div>
+         </form>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+    function deleteBlog(name, id){
+        document.getElementById("nameDelete").innerHTML=name;
+        document.getElementById("nameId").value=id;
+
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+</html>
